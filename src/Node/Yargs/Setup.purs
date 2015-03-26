@@ -4,6 +4,8 @@ module Node.Yargs.Setup
   , example
   , alias
   , demand
+  , demandCount
+  , command
   , requiresArg
   , describe
   , boolean
@@ -38,8 +40,14 @@ example = unsafeForeignFunction ["cmd", "desc", "y"] "y.example(cmd, desc)"
 alias :: String -> String -> YargsSetup
 alias = unsafeForeignFunction ["key", "alias", "y"] "y.alias(key, alias)"
 
+command :: String -> String -> YargsSetup
+command = unsafeForeignFunction ["cmd", "msg", "y"] "y.command(cmd, msg)"
+
 demand :: String -> String -> YargsSetup
 demand = unsafeForeignFunction ["key", "msg", "y"] "y.demand(key, msg)"
+
+demandCount :: Number -> YargsSetup
+demandCount = unsafeForeignFunction ["count", "y"] "y.demand(count)"
 
 requiresArg :: String -> YargsSetup
 requiresArg = unsafeForeignFunction ["key", "y"] "y.requiresArg(key)"

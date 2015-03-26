@@ -3,6 +3,7 @@ module Node.Yargs.Applicative
   , runY
   , Arg, arg
   , yarg
+  , cmd
   , flag
   , rest
   ) where
@@ -102,6 +103,14 @@ yarg key aliases desc required needArg =
 
 flag :: forall a. String -> [String] -> Maybe String -> Y Boolean
 flag key aliases desc = yarg key aliases desc (Left false) false
+
+cmd :: String -> String -> Y [String]
+cmd name desc =
+  let
+    y = unY (arg "_")
+  in Y { setup: y.setup <> command name desc
+       , read: y.read
+       }
 
 rest :: Y [Foreign]
 rest = Y { setup: mempty
